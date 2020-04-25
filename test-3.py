@@ -2,11 +2,7 @@ import sys
 import time
 from pymata4 import pymata4
 
-"""
-This program continuously monitors an HC-SR04 Ultrasonic Sensor
-It reports changes to the distance sensed.
-"""
-# indices into callback data
+
 DISTANCE_CM = 2
 TRIGGER_PIN = 8
 ECHO_PIN = 9
@@ -33,7 +29,7 @@ def sonar(my_board, trigger_pin, echo_pin, callback):
 
     # set the pin mode for the trigger and echo pins
     my_board.set_pin_mode_sonar(trigger_pin, echo_pin, callback)
-    # wait forever
+
     while True:
         try:
             time.sleep(0.1)
@@ -41,7 +37,6 @@ def sonar(my_board, trigger_pin, echo_pin, callback):
             distance = my_board.sonar_read(TRIGGER_PIN)[0]
             if distance<5:
                 servo(board,10)
-                
             else:
                 servo_rev(board, 10)
         except KeyboardInterrupt:
@@ -50,12 +45,6 @@ def sonar(my_board, trigger_pin, echo_pin, callback):
 
 
 def servo(my_board, pin):
-    """
-    Set a pin to servo mode and then adjust
-    its position.
-    :param my_board: pymata4
-    :param pin: pin to be controlled
-    """
 
     # set the pin mode
     my_board.set_pin_mode_servo(pin)
